@@ -13,3 +13,6 @@ services:
     ports:
       - "9001:8080"
     restart: always
+    volumes:
+      - /usr/local/etc/github/woshidasusu.github.io/:/var/jenkins_home/blog/codes/
+      - /root/.ssh/:/root/.ssh/:ro
