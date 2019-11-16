@@ -1,10 +1,15 @@
 version: '3'
 
 services:
-  web:
+  blog:
     build: ./blog/
     ports:
       - "9000:80"
     restart: always
     volumes:
       - /usr/local/etc/github/woshidasusu.github.io/:/usr/share/nginx/html/:ro
+  jenkins:
+    build: ./jenkins/
+    ports:
+      - "9001:8080"
+    restart: always
