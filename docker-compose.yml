@@ -1,0 +1,10 @@
+version: '3'
+
+services:
+  web:
+    build: ./blog/
+    ports:
+      - "9000:80"
+    restart: always
+    volumes:
+      - /usr/local/etc/github/woshidasusu.github.io/:/usr/share/nginx/html/:ro
