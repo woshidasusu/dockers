@@ -12,7 +12,10 @@ services:
     build: ./jenkins/
     ports:
       - "9001:8080"
+      - "50000:50000"
+    user: root
     restart: always
     volumes:
       - /usr/local/etc/github/woshidasusu.github.io/:/var/jenkins_home/blog/codes/
       - /root/.ssh/:/root/.ssh/:ro
+      - /etc/localtime:/etc/localtime:ro
