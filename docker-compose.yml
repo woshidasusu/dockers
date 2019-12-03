@@ -18,6 +18,16 @@ services:
     networks:
       n_nginx:
         ipv4_address: 192.168.5.105
+  gitbook:
+    build: ./gitbook/
+    ports:
+      - "9002:80"
+    restart: always
+    volumes:
+      - /usr/local/etc/github/Doc/gitbook/_book/:/usr/share/nginx/html/:ro
+    networks:
+      n_nginx:
+        ipv4_address: 192.168.5.106
   jenkins:
     build: ./jenkins/
     ports:
@@ -27,6 +37,7 @@ services:
     restart: always
     volumes:
       - /usr/local/etc/github/woshidasusu.github.io/:/var/jenkins_home/blog/codes/
+      - /usr/local/etc/github/Doc/:/var/jenkins_home/gitbook/codes/
       - /root/.ssh/:/root/.ssh/:ro
       - /etc/localtime:/etc/localtime:ro
     networks:
