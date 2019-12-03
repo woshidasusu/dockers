@@ -11,11 +11,11 @@ nginx 服务，映射80端口，根据二级域名进行转发，如：
 
 ### blog
 
-nginx 运行的个人博客网站
+nginx 运行的个人博客网站，跑在 9000 端口上  
 [http://blog.dasu.fun](http://blog.dasu.fun:9000)  
 
 ### jenkins
 
-jenkins 服务，自动更新个人博客网站
+jenkins 服务，自动更新个人博客网站，跑在 9001 端口上  
 [http://jenkins.dasu.fun](http://jenkins.dasu.fun:9001)
 
