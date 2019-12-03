@@ -19,3 +19,10 @@ nginx 运行的个人博客网站，跑在 9000 端口上
 jenkins 服务，自动更新个人博客网站，跑在 9001 端口上  
 [http://jenkins.dasu.fun](http://jenkins.dasu.fun:9001)
 
+### gitbook
+
+查询笔记-待研究
+
+### nextCloud
+
+个人网盘-待研究
