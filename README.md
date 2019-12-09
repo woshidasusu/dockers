@@ -26,7 +26,7 @@ jenkins 服务，自动更新个人博客网站和 gitbook，跑在 9001 端口�
 gitbook 搭建的各种速查笔记，方便查阅，跑在 9002端口上
 [http://gitbook.dasu.fun](http://gitbook.dasu.fun:9002)
 
-### nextCloudy
+### nextCloud
 
 nextCloud 搭建的个人网盘，跑在 9003 端口上
 [http://nextcloud.dasu.fun](http://nextcloud.dasu.fun:9003)
