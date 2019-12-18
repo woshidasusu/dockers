@@ -17,7 +17,7 @@ services:
       - "9002:80"
     restart: always
     volumes:
-      - /usr/local/etc/github/Doc/gitbook/_book/:/usr/share/nginx/html/:ro
+      - /usr/local/etc/github/Doc/gitbook/_book/:/usr/share/nginx/html/
     networks:
       n_nginx:
         ipv4_address: 192.168.5.106
