@@ -1,77 +1,82 @@
-version: '3'
+version: "3"
 
 services:
   blog:
-    build: ./blog/
+    build: ./blog/ # 使用位于 ./blog/ 目录中的 Dockerfile 来构建容器镜像
     ports:
-      - "9000:80"
-    restart: always
+      - "9000:80" # 将容器的 80 端口映射到主机的 9000 端口
+    restart: always # 容器停止后自动重启
     volumes:
-      - /usr/local/etc/github/woshidasusu.github.io/:/usr/share/nginx/html/:ro
+      - /root/blog/woshidasusu.github.io/:/usr/share/nginx/html/:ro # 将主机的 /root/blog/woshidasusu.github.io/ 目录挂载到容器的 /usr/share/nginx/html/ 目录，并设置为只读
     networks:
       n_nginx:
-        ipv4_address: 192.168.5.105
+        ipv4_address: 192.168.5.105 # 为容器分配指定的 IPv4 地址
+
   gitbook:
-    build: ./gitbook/
+    build: ./gitbook/ # 使用位于 ./gitbook/ 目录中的 Dockerfile 来构建容器镜像
     ports:
-      - "9002:80"
-    restart: always
+      - "9002:80" # 将容器的 80 端口映射到主机的 9002 端口
+    restart: always # 容器停止后自动重启
     volumes:
-      - /usr/local/etc/docker/gitbook/html/:/usr/share/nginx/html/
+      - /root/gitbook/html/:/usr/share/nginx/html/ # 将主机的 /root/gitbook/html/ 目录挂载到容器的 /usr/share/nginx/html/ 目录
     networks:
       n_nginx:
-        ipv4_address: 192.168.5.106
+        ipv4_address: 192.168.5.106 # 为容器分配指定的 IPv4 地址
+
   jenkins:
-    build: ./jenkins/
+    build: ./jenkins/ # 使用位于 ./jenkins/ 目录中的 Dockerfile 来构建容器镜像
     ports:
-      - "9001:8080"
-      - "50000:50000"
-    user: root
-    restart: always
+      - "9001:8080" # 将容器的 8080 端口映射到主机的 9001 端口
+      - "50000:50000" # 将容器的 50000 端口映射到主机的 50000 端口
+    user: root # 在容器中以 root 用户身份运行
+    restart: always # 容器停止后自动重启
     volumes:
-      - /usr/local/etc/github/woshidasusu.github.io/:/var/jenkins_home/blog/codes/
-      - /usr/local/etc/github/Doc/:/var/jenkins_home/gitbook/codes/
-      - /root/.ssh/:/root/.ssh/:ro
-      - /etc/localtime:/etc/localtime:ro
+      - /root/blog/woshidasusu.github.io/:/var/jenkins_home/blog/codes/ # 将主机的 /root/blog/woshidasusu.github.io/ 目录挂载到容器的 /var/jenkins_home/blog/codes/ 目录
+      - /root/github/Doc/:/var/jenkins_home/gitbook/codes/ # 将主机的 /root/github/Doc/ 目录挂载到容器的 /var/jenkins_home/gitbook/codes/ 目录
+      - /root/.ssh/:/root/.ssh/:ro # 将主机的 /root/.ssh/ 目录挂载到容器的 /root/.ssh/ 目录，并设置为只读
+      - /etc/localtime:/etc/localtime:ro # 将主机的 /etc/localtime 文件挂载到容器的 /etc/localtime 文件，并设置为只读
     networks:
       n_nginx:
-        ipv4_address: 192.168.5.104
+        ipv4_address: 192.168.5.104 # 为容器分配指定的 IPv4 地址
+
   nginx:
-    build: ./nginx/
+    build: ./nginx/ # 使用位于 ./nginx/ 目录中的 Dockerfile 来构建容器镜像
     ports:
-      - "80:80"
-    restart: always
+      - "80:80" # 将容器的 80 端口映射到主机的 80 端口
+    restart: always # 容器停止后自动重启
     networks:
       n_nginx:
-        ipv4_address: 192.168.5.103
+        ipv4_address: 192.168.5.103 # 为容器分配指定的 IPv4 地址
+
   db:
-    image: postgres
+    image: postgres # 使用 PostgreSQL 镜像
     environment:
-      - POSTGRES_PASSWORD=147zaqXSW!
-      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=147zaqXSW! # 设置 PostgreSQL 数据库的密码
+      - POSTGRES_USER=postgres # 设置 PostgreSQL 数据库的用户名
     volumes:
-      - /usr/local/etc/postgres/data:/var/lib/postgresql/data
+      - /root/postgres/data:/var/lib/postgresql/data # 将主机的 /root/postgres/data 目录挂载到容器的 /var/lib/postgresql/data 目录
     expose:
-      - "5432"
+      - "5432" # 暴露容器的 5432 端口给其他容器使用
     networks:
       n_nginx:
-        ipv4_address: 192.168.5.107
+        ipv4_address: 192.168.5.107 # 为容器分配指定的 IPv4 地址
+
   nextcloud:
-    image: nextcloud
+    image: nextcloud # 使用 Nextcloud 镜像
     ports:
-      - 9003:80
+      - 9003:80 # 将容器的 80 端口映射到主机的 9003 端口
     volumes:
-      - nextcloud:/var/www/html
+      - nextcloud:/var/www/html # 将名为 "nextcloud" 的卷挂载到容器的 /var/www/html 目录
     networks:
       n_nginx:
-        ipv4_address: 192.168.5.108  
+        ipv4_address: 192.168.5.108 # 为容器分配指定的 IPv4 地址
 
 networks:
   n_nginx:
-    driver: bridge
+    driver: bridge # 使用桥接网络模式
     ipam:
       config:
-        - subnet: 192.168.5.0/24  ## 宿主机一般会是该网段的 .1，所以不要设置网段为1 i
+        - subnet: 192.168.5.0/24 # 定义网络的子网地址范围为 192.168.5.0/24，宿主机一般会是该网段的 .1，所以不要将网段设置为 1
 
 volumes:
-  nextcloud:
+  nextcloud: # 定义名为 "nextcloud" 的卷

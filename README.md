@@ -30,3 +30,24 @@ gitbook 搭建的各种速查笔记，方便查阅，跑在 9002端口上
 
 nextCloud 搭建的个人网盘，跑在 9003 端口上
 [http://nextcloud.dasu.fun](http://nextcloud.dasu.fun:9003)
+
+## 教程
+
+### 第一步 服务器环境准备
+
+- 进入 `/root/` 目录，创建一下这些目录：
+  - `mkdir blog`
+  - `mkdir github`
+  - `mkdir postgres`
+- 云服务器上生成 ssh 密钥，并把 id_rsa.pub 配置到 github 账号后台上 
+  - `ssh-keygen -t rsa -b 4096 -C "295207731@qq.com"`
+- 安装 docker 环境
+  - 直接在阿里云控制台的操作：
+  - 云服务器ECS/实例/实例详情/定时与自动化任务/安装软件/开源社区提供的软件-Docker社区版
+- 安装 git 环境
+  - `sudo yum update`
+  - `sudo yum install git`
+
+### 第二步 拉取github项目
+
+- cd
