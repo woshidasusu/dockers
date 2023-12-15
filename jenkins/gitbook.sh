@@ -34,7 +34,8 @@ pwd;
 cp ./面试题/README.md ./gitbook/面试题积累/README.md;
 cd gitbook/;
 pwd;
-gitbook build;
+npm install
+npm run build;
 
 echo "4.========================拷贝gitbook网站========================";
 
@@ -46,14 +47,3 @@ ls /root/gitbook/html/ -all;
 exit 0;
 "
 #sleep 5
-
-
-echo "5.========================更新仓库========================"
-git add .
-#sleep 5
-git commit -m '@gitbook #auto this is update by jenkins'
-#sleep 5
-git status
-git config user.email 295207731@qq.com
-git config user.name dasu
-git push origin master
