@@ -29,7 +29,7 @@ git pull
 /usr/bin/ssh -o StrictHostKeyChecking=no 192.168.5.1 "
 echo "3.=======================ssh宿主机========================";
 pwd;
-cd /usr/local/etc/github/Doc/;
+cd /root/github/Doc/;
 pwd;
 cp ./面试题/README.md ./gitbook/面试题积累/README.md;
 cd gitbook/;
@@ -39,9 +39,9 @@ gitbook build;
 echo "4.========================拷贝gitbook网站========================";
 
 pwd;
-rm -rf /usr/local/etc/docker/gitbook/html/*;
-cp -fr ./_book/* /usr/local/etc/docker/gitbook/html/;
-ls /usr/local/etc/docker/gitbook/html/ -all;
+rm -rf /root/gitbook/html/*;
+cp -fr ./_book/* /root/gitbook/html/;
+ls /root/gitbook/html/ -all;
 
 exit 0;
 "
@@ -55,5 +55,5 @@ git commit -m '@gitbook #auto this is update by jenkins'
 #sleep 5
 git status
 git config user.email 295207731@qq.com
-git config user.name woshidasusu
+git config user.name dasu
 git push origin master
