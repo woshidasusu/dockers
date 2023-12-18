@@ -138,7 +138,18 @@ services:
     networks:
       n_nginx:
         ipv4_address: 192.168.5.112 # 为容器分配指定的 IPv4 地址
-  
+
+  portainer:
+    image: portainer/portainer-ce
+    ports:
+      - 9008:9000
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - portainer_data:/data
+    networks:
+      n_nginx:
+        ipv4_address: 192.168.5.113 # 为容器分配指定的 IPv4 地址
+
 
 networks:
   n_nginx:
