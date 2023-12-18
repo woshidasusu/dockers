@@ -1,11 +1,7 @@
 #!/bin/bash
 
-log_file="setup.log"
-
 # 函数：打印日志
 log() {
-  local datetime=$(date +"%Y-%m-%d %H:%M:%S")
-  echo "[$datetime] $1" >> "$log_file"
   echo '>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>'
   echo "$1"
 }
