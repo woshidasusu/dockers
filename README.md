@@ -34,18 +34,17 @@ nextCloud 搭建的个人网盘，跑在 9003 端口上
 ## 教程
 
 
-### 服务器环境准备
+### 服务器环境准备(一)
 
 - 云服务器上生成 ssh 密钥，并把 id_rsa.pub 配置到 github 账号后台上 
   - `ssh-keygen -t rsa -b 4096 -C "295207731@qq.com"`
 - 开放云服务器的80和443端口访问
   - 直接在控制台的安全组入方向操作
   - 协议（TCP），端口范围（80/80，443/443），授权对象（0.0.0.0/0）
-- 安装 ssh 环境
-  - `sudo yum install openssh-server` # CentOS/Fedora 安装
-  - `sudo systemctl start sshd` # 启动
-  - `sudo systemctl enable sshd` # 开机自启
-  - `sudo systemctl status sshd` # 查看是否启动
+
+### 服务器环境准备（二）
+
+以下步骤可通过脚本自动安装 `bash setup.sh`，也可手动安装：
 - 安装 docker 环境
   - 直接在阿里云控制台的操作：
   - 云服务器ECS/实例/实例详情/定时与自动化任务/安装软件/开源社区提供的软件-Docker社区版
@@ -54,7 +53,6 @@ nextCloud 搭建的个人网盘，跑在 9003 端口上
   - `sudo chmod +x /usr/local/bin/docker-compose`
   - `docker-compose --version`
 - 安装 git 环境
-  - `sudo yum update`
   - `sudo yum install git`
   - `git --version`
 - 安装 nvm 和 node 环境
@@ -72,6 +70,8 @@ nextCloud 搭建的个人网盘，跑在 9003 端口上
   - `mkdir blog`
   - `mkdir github`
   - `mkdir postgres`
+  - `mkdir doc`
+  - `mkdir gitbook`
 
 - cd
 

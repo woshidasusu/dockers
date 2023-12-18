@@ -85,8 +85,6 @@ services:
     restart: always
     ports:
       - 9004:80 
-    environment:
-      - GITLAB_OMNIBUS_CONFIG=external_url 'http://localhost:9004'  # 设置 GitLab 的外部 URL
     volumes:
       - gitlab_data:/var/opt/gitlab  # 持久化存储 GitLab 的数据
     networks:
@@ -104,42 +102,42 @@ services:
       n_nginx:
         ipv4_address: 192.168.5.110 # 为容器分配指定的 IPv4 地址
 
-  coder:
-    image: codercom/code-server
-    ports:
-      - 9006:8080
-    environment:
-      - PASSWORD=suxq@123  # 设置密码为 suxq@123
-      - USER=suxq  # 设置用户名为 suxq
-    volumes:
-      - coder_data:/home/coder/project  # 挂载数据卷，用于持久化存储项目文件
-    networks:
-      n_nginx:
-        ipv4_address: 192.168.5.111 # 为容器分配指定的 IPv4 地址
+  # coder:
+  #   image: codercom/code-server
+  #   ports:
+  #     - 9006:8080
+  #   environment:
+  #     - PASSWORD=suxq@123  # 设置密码为 suxq@123
+  #     - USER=suxq  # 设置用户名为 suxq
+  #   volumes:
+  #     - coder_data:/home/coder/project  # 挂载数据卷，用于持久化存储项目文件
+  #   networks:
+  #     n_nginx:
+  #       ipv4_address: 192.168.5.111 # 为容器分配指定的 IPv4 地址
 
-  gitpod:
-    image: gitpod/workspace-full
-    ports:
-      - 9007:8888
-    environment:
-      - PASSWORD=suxq@123  # 设置密码为 suxq@123
-      - USER=suxq  # 设置用户名为 suxq
-    volumes:
-      - gitpod_data:/workspace  # 挂载数据卷，用于持久化存储工作区文件
-    networks:
-      n_nginx:
-        ipv4_address: 192.168.5.112 # 为容器分配指定的 IPv4 地址
+  # gitpod:
+  #   image: gitpod/workspace-full
+  #   ports:
+  #     - 9007:8888
+  #   environment:
+  #     - PASSWORD=suxq@123  # 设置密码为 suxq@123
+  #     - USER=suxq  # 设置用户名为 suxq
+  #   volumes:
+  #     - gitpod_data:/workspace  # 挂载数据卷，用于持久化存储工作区文件
+  #   networks:
+  #     n_nginx:
+  #       ipv4_address: 192.168.5.112 # 为容器分配指定的 IPv4 地址
 
-  portainer:
-    image: portainer/portainer-ce
-    ports:
-      - 9008:9000
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
-      - portainer_data:/data
-    networks:
-      n_nginx:
-        ipv4_address: 192.168.5.113 # 为容器分配指定的 IPv4 地址
+  # portainer:
+  #   image: portainer/portainer-ce
+  #   ports:
+  #     - 9008:9000
+  #   volumes:
+  #     - /var/run/docker.sock:/var/run/docker.sock
+  #     - portainer_data:/data
+  #   networks:
+  #     n_nginx:
+  #       ipv4_address: 192.168.5.113 # 为容器分配指定的 IPv4 地址
 
 
 networks:
@@ -153,6 +151,6 @@ networks:
 volumes:
   nextcloud:
   gitlab_data:
-  coder_data:
-  gitpod_data:
-  portainer_data:
+  # coder_data:
+  # gitpod_data:
+  # portainer_data:
