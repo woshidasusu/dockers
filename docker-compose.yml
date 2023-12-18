@@ -113,10 +113,6 @@ services:
       - USER=suxq  # 设置用户名为 suxq
     volumes:
       - coder_data:/home/coder/project  # 挂载数据卷，用于持久化存储项目文件
-    ulimits:
-      nofile:
-        soft: 10000  # 设置文件描述符限制 soft 为软限制
-        hard: 20000  # 设置文件描述符限制 hard 为硬限制
     networks:
       n_nginx:
         ipv4_address: 192.168.5.111 # 为容器分配指定的 IPv4 地址
@@ -130,11 +126,6 @@ services:
       - USER=suxq  # 设置用户名为 suxq
     volumes:
       - gitpod_data:/workspace  # 挂载数据卷，用于持久化存储工作区文件
-    resources:
-      limits:
-        memory: 2g  # 设置内存限制为 2GB
-      reservations:
-        memory: 1g  # 设置内存保留量为 1GB
     networks:
       n_nginx:
         ipv4_address: 192.168.5.112 # 为容器分配指定的 IPv4 地址
