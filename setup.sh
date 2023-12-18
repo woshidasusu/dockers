@@ -19,8 +19,6 @@ mkdir gitbook
 
 # 拉取 github 仓库
 log "拉取 github 仓库..."
-cd /root/
-git clone git@github.com:woshidasusu/dockers.git
 
 cd /root/blog
 git clone git@github.com:woshidasusu/woshidasusu.github.io.git
