@@ -64,6 +64,8 @@ mkdir postgres
 mkdir doc
 mkdir gitbook
 
+git clone git@github.com:woshidasusu/dockers.git
+
 cd /root/blog
 git clone git@github.com:woshidasusu/woshidasusu.github.io.git
 
