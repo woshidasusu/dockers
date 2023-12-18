@@ -149,8 +149,10 @@ networks:
       config:
         - subnet: 192.168.5.0/24 # 定义网络的子网地址范围为 192.168.5.0/24，宿主机一般会是该网段的 .1，所以不要将网段设置为 1
 
+# 命名卷是多容器共享卷，具有持久化能力
 volumes:
-  nextcloud: # 命名卷："nextcloud" 是多容器共享卷，具有持久化能力
+  nextcloud:
   gitlab_data:
   coder_data:
   gitpod_data:
+  portainer_data:
