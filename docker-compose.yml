@@ -81,7 +81,7 @@ services:
         ipv4_address: 192.168.5.108 # 为容器分配指定的 IPv4 地址
 
   gitlab:
-    build: './gitlal/'
+    build: './gitlab/'
     restart: always
     ports:
       - 9004:80 
