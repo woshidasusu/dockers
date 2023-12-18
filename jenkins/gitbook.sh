@@ -26,7 +26,7 @@ git pull
 #sleep 5
 
 
-/usr/bin/ssh -o StrictHostKeyChecking=no 192.168.5.1 "
+/usr/bin/ssh -o StrictHostKeyChecking=no 192.168.5.1
 echo "3.=======================ssh宿主机========================";
 pwd;
 cd /root/github/Doc/;

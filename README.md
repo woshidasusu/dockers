@@ -57,6 +57,9 @@ nextCloud 搭建的个人网盘，跑在 9003 端口上
   - `source ~/.bashrc`
   - `nvm install node`
   - `node -v`
+- 安装 whistle 环境
+  - `npm install whistle -g`
+  - `w2 start`
 
 ### 拉取github项目
 

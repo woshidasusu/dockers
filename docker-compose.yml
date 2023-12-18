@@ -50,6 +50,7 @@ services:
 
   db:
     image: postgres # 使用 PostgreSQL 镜像
+    restart: always # 容器停止后自动重启
     environment:
       - POSTGRES_PASSWORD=147zaqXSW! # 设置 PostgreSQL 数据库的密码
       - POSTGRES_USER=postgres # 设置 PostgreSQL 数据库的用户名
@@ -63,13 +64,81 @@ services:
 
   nextcloud:
     image: nextcloud # 使用 Nextcloud 镜像
+    restart: always # 容器停止后自动重启
     ports:
       - 9003:80 # 将容器的 80 端口映射到主机的 9003 端口
+    depends_on:
+      - db  # 依赖于 db 服务，确保数据库服务在 Nextcloud 服务启动之前已经启动
+    environment:
+      - POSTGRES_HOST=db  # 设置 Nextcloud 使用的 PostgreSQL 数据库的主机为 db
+      - POSTGRES_DB=postgres  # 设置 Nextcloud 使用的数据库名称
+      - POSTGRES_USER=postgres  # 设置 Nextcloud 使用的数据库用户名
+      - POSTGRES_PASSWORD=147zaqXSW!  # 设置 Nextcloud 使用的数据库密码
     volumes:
       - nextcloud:/var/www/html # 将名为 "nextcloud" 的卷挂载到容器的 /var/www/html 目录
     networks:
       n_nginx:
         ipv4_address: 192.168.5.108 # 为容器分配指定的 IPv4 地址
+
+  gitlab:
+    build: './gitlal/'
+    restart: always
+    ports:
+      - 9004:80 
+    environment:
+      - GITLAB_OMNIBUS_CONFIG=external_url 'http://localhost:9004'  # 设置 GitLab 的外部 URL
+    volumes:
+      - gitlab_data:/var/opt/gitlab  # 持久化存储 GitLab 的数据
+    networks:
+      n_nginx:
+        ipv4_address: 192.168.5.109 # 为容器分配指定的 IPv4 地址
+
+  doc:
+    build: ./doc/ 
+    ports:
+      - "9005:80" 
+    restart: always 
+    volumes:
+      - /root/doc/html/:/usr/share/nginx/html/
+    networks:
+      n_nginx:
+        ipv4_address: 192.168.5.110 # 为容器分配指定的 IPv4 地址
+
+  coder:
+    image: codercom/code-server
+    ports:
+      - 9006:8080
+    environment:
+      - PASSWORD=suxq@123  # 设置密码为 suxq@123
+      - USER=suxq  # 设置用户名为 suxq
+    volumes:
+      - coder_data:/home/coder/project  # 挂载数据卷，用于持久化存储项目文件
+    ulimits:
+      nofile:
+        soft: 10000  # 设置文件描述符限制 soft 为软限制
+        hard: 20000  # 设置文件描述符限制 hard 为硬限制
+    networks:
+      n_nginx:
+        ipv4_address: 192.168.5.111 # 为容器分配指定的 IPv4 地址
+
+  gitpod:
+    image: gitpod/workspace-full
+    ports:
+      - 9007:8888
+    environment:
+      - PASSWORD=suxq@123  # 设置密码为 suxq@123
+      - USER=suxq  # 设置用户名为 suxq
+    volumes:
+      - gitpod_data:/workspace  # 挂载数据卷，用于持久化存储工作区文件
+    resources:
+      limits:
+        memory: 2g  # 设置内存限制为 2GB
+      reservations:
+        memory: 1g  # 设置内存保留量为 1GB
+    networks:
+      n_nginx:
+        ipv4_address: 192.168.5.112 # 为容器分配指定的 IPv4 地址
+  
 
 networks:
   n_nginx:
@@ -79,4 +148,7 @@ networks:
         - subnet: 192.168.5.0/24 # 定义网络的子网地址范围为 192.168.5.0/24，宿主机一般会是该网段的 .1，所以不要将网段设置为 1
 
 volumes:
-  nextcloud: # 定义名为 "nextcloud" 的卷
+  nextcloud: # 命名卷："nextcloud" 是多容器共享卷，具有持久化能力
+  gitlab_data:
+  coder_data:
+  gitpod_data:
