@@ -134,7 +134,7 @@ node -v
 log "开始安装 Whistle 环境..."
 npm install whistle -g
 log "Whistle 环境安装完成。"
-w2 start
+#w2 start
 
 
 # 拉取 github 仓库
