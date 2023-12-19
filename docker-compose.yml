@@ -1,6 +1,15 @@
 version: "3"
 
 services:
+  nginx:
+    build: ./nginx/ # 使用位于 ./nginx/ 目录中的 Dockerfile 来构建容器镜像
+    ports:
+      - "80:80" # 将容器的 80 端口映射到主机的 80 端口
+    restart: always # 容器停止后自动重启
+    networks:
+      n_nginx:
+        ipv4_address: 192.168.5.103 # 为容器分配指定的 IPv4 地址
+
   blog:
     build: ./blog/ # 使用位于 ./blog/ 目录中的 Dockerfile 来构建容器镜像
     ports:
@@ -11,17 +20,6 @@ services:
     networks:
       n_nginx:
         ipv4_address: 192.168.5.105 # 为容器分配指定的 IPv4 地址
-
-  note:
-    build: ./note/ # 使用位于 ./note/ 目录中的 Dockerfile 来构建容器镜像
-    ports:
-      - "9002:80" # 将容器的 80 端口映射到主机的 9002 端口
-    restart: always # 容器停止后自动重启
-    volumes:
-      - /root/note/html/:/usr/share/nginx/html/ # 将主机的 /root/note/html/ 目录挂载到容器的 /usr/share/nginx/html/ 目录
-    networks:
-      n_nginx:
-        ipv4_address: 192.168.5.106 # 为容器分配指定的 IPv4 地址
 
   jenkins:
     build: ./jenkins/ # 使用位于 ./jenkins/ 目录中的 Dockerfile 来构建容器镜像
@@ -38,14 +36,16 @@ services:
       n_nginx:
         ipv4_address: 192.168.5.104 # 为容器分配指定的 IPv4 地址
 
-  nginx:
-    build: ./nginx/ # 使用位于 ./nginx/ 目录中的 Dockerfile 来构建容器镜像
+  note:
+    build: ./note/ # 使用位于 ./note/ 目录中的 Dockerfile 来构建容器镜像
     ports:
-      - "80:80" # 将容器的 80 端口映射到主机的 80 端口
+      - "9002:80" # 将容器的 80 端口映射到主机的 9002 端口
     restart: always # 容器停止后自动重启
+    volumes:
+      - /root/note/html/:/usr/share/nginx/html/ # 将主机的 /root/note/html/ 目录挂载到容器的 /usr/share/nginx/html/ 目录
     networks:
       n_nginx:
-        ipv4_address: 192.168.5.103 # 为容器分配指定的 IPv4 地址
+        ipv4_address: 192.168.5.106 # 为容器分配指定的 IPv4 地址
 
   db:
     image: postgres # 使用 PostgreSQL 镜像
@@ -60,6 +60,20 @@ services:
     networks:
       n_nginx:
         ipv4_address: 192.168.5.107 # 为容器分配指定的 IPv4 地址
+  
+  office:
+    image: collabora/code
+    restart: always
+    environment:
+      - username=admin  # Collabora Online 服务的管理员用户名
+      - password=secret  # Collabora Online 服务的管理员密码
+    cap_add:
+      - MKNOD
+    volumes:
+      - office:/var/lib/loolwsd  # 将名为 "office" 的卷挂载到容器的 /var/lib/loolwsd 目录
+    networks:
+      n_nginx: 
+        ipv4_address: 192.168.5.112  # 为容器分配指定的 IPv4 地址
 
   nextcloud:
     image: nextcloud # 使用 Nextcloud 镜像
@@ -67,12 +81,15 @@ services:
     ports:
       - 9003:80 # 将容器的 80 端口映射到主机的 9003 端口
     depends_on:
-      - db  # 依赖于 db 服务，确保数据库服务在 Nextcloud 服务启动之前已经启动
+      - db # 依赖于 db 服务，确保数据库服务在 Nextcloud 服务启动之前已经启动
+      - office  # 依赖于 office 服务，确保 Collabora Online 服务在 Nextcloud 服务启动之前已经启动
     environment:
-      - POSTGRES_HOST=db  # 设置 Nextcloud 使用的 PostgreSQL 数据库的主机为 db
-      - POSTGRES_DB=postgres  # 设置 Nextcloud 使用的数据库名称
-      - POSTGRES_USER=postgres  # 设置 Nextcloud 使用的数据库用户名
-      - POSTGRES_PASSWORD=147zaqXSW!  # 设置 Nextcloud 使用的数据库密码
+      - POSTGRES_HOST=db # 设置 Nextcloud 使用的 PostgreSQL 数据库的主机为 db
+      - POSTGRES_DB=postgres # 设置 Nextcloud 使用的数据库名称
+      - POSTGRES_USER=postgres # 设置 Nextcloud 使用的数据库用户名
+      - POSTGRES_PASSWORD=147zaqXSW! # 设置 Nextcloud 使用的数据库密码
+      - NEXTCLOUD_APPS=richdocuments  # 启用 Nextcloud Office 插件
+      - RICHDOCUMENTS_SERVER_CONTAINER_NAME=office  # 指定 Collabora Online 服务的容器名称
     volumes:
       - nextcloud:/var/www/html # 将名为 "nextcloud" 的卷挂载到容器的 /var/www/html 目录
     networks:
@@ -83,10 +100,10 @@ services:
         #nextcloud office
 
   doc:
-    build: ./doc/ 
+    build: ./doc/
     ports:
-      - "9005:80" 
-    restart: always 
+      - "9005:80"
+    restart: always
     volumes:
       - /root/doc/html/:/usr/share/nginx/html/
     networks:
@@ -103,3 +120,4 @@ networks:
 # 命名卷是多容器共享卷，具有持久化能力
 volumes:
   nextcloud:
+  office:

@@ -55,6 +55,13 @@ nginx 服务，映射 80 端口，根据二级域名进行转发，如：
 - 进入 `/root/dockers` 目录，执行：
   - `docker-compose up -d` # 一键创建、启动后台运行的容器, -d 表示后台运行
 
+### nextcloud 插件安装
+
+- Nextcloud Office + Collabora Online - Built-in CODE Server
+  - 在线 office 插件，可在应用捆绑包/枢纽捆绑包里下载
+  - 或者直接执行：
+  - `docker exec -u 33 -it dockers-nextcloud-1 bash`
+  - `php -d memory_limit=512M occ app:install richdocumentscode`
 ## 教程 - 脚本版
 
 ### 服务器环境准备
