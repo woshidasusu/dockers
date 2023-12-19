@@ -50,7 +50,7 @@ nginx 服务，映射 80 端口，根据二级域名进行转发，如：
     - 源代码目录
   - `mkdir postgres` 
     - 数据库
-  - `mkdir doc` 
+  - `mkdir Doc` 
     - 构建 Doc 仓库生成的资源（主要是平时的积累）
   - `mkdir note` 
     - 构建 note 仓库生成的资源（主要是一些速查笔记）
@@ -61,13 +61,25 @@ nginx 服务，映射 80 端口，根据二级域名进行转发，如：
   - `docker-compose up -d` 
     - 一键创建、启动后台运行的容器, -d 表示后台运行
 
-### nextcloud 插件安装
+### nextcloud 平台初始化
 
+插件安装：
 - Nextcloud Office + Collabora Online - Built-in CODE Server
   - 在线 office 插件，可在应用捆绑包/枢纽捆绑包里下载
   - 或者直接执行：
   - `docker exec -u 33 -it dockers-nextcloud-1 bash`
   - `php -d memory_limit=512M occ app:install richdocumentscode`
+
+### jenkins 平台初始化
+
+查看密码：
+- `docker exec -it dockers-jenkins-1 cat /var/jenkins_home/secrets/initialAdminPassword` 
+
+创建项目：
+- blog
+- doc
+- note
+
 ## 教程 - 脚本版
 
 ### 服务器环境准备
@@ -103,11 +115,6 @@ sudo yum install -y yum-utils device-mapper-persistent-data lvm2
 sudo yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
 sudo yum install -y docker-ce docker-ce-cli containerd.io
 sudo cp /etc/docker/daemon.json /etc/docker/daemon.json.bak
-sudo tee /etc/docker/daemon.json <<-'EOF2'
-{
-  "registry-mirrors": ["https://docker.mirrors.tuna.tsinghua.edu.cn"]
-}
-EOF2
 sudo systemctl start docker
 sudo usermod -aG docker $USER
 docker -v
@@ -151,8 +158,6 @@ cd /root/
 mkdir blog
 mkdir github
 mkdir postgres
-mkdir doc
-mkdir note
 
 echo -e "Host github.com\n  StrictHostKeyChecking no" >> ~/.ssh/config
 git clone git@github.com:woshidasusu/dockers.git
@@ -160,8 +165,11 @@ git clone git@github.com:woshidasusu/dockers.git
 cd /root/blog
 git clone git@github.com:woshidasusu/woshidasusu.github.io.git
 
-cd /root/github
+cd /root/
 git clone git@github.com:woshidasusu/Doc.git
+
+cd /root/
+git clone git@github.com:woshidasusu/note.git
 
 
 log "所有环境安装完成。"
