@@ -12,13 +12,13 @@ services:
       n_nginx:
         ipv4_address: 192.168.5.105 # 为容器分配指定的 IPv4 地址
 
-  gitbook:
-    build: ./gitbook/ # 使用位于 ./gitbook/ 目录中的 Dockerfile 来构建容器镜像
+  note:
+    build: ./note/ # 使用位于 ./note/ 目录中的 Dockerfile 来构建容器镜像
     ports:
       - "9002:80" # 将容器的 80 端口映射到主机的 9002 端口
     restart: always # 容器停止后自动重启
     volumes:
-      - /root/gitbook/html/:/usr/share/nginx/html/ # 将主机的 /root/gitbook/html/ 目录挂载到容器的 /usr/share/nginx/html/ 目录
+      - /root/note/html/:/usr/share/nginx/html/ # 将主机的 /root/note/html/ 目录挂载到容器的 /usr/share/nginx/html/ 目录
     networks:
       n_nginx:
         ipv4_address: 192.168.5.106 # 为容器分配指定的 IPv4 地址
@@ -32,7 +32,6 @@ services:
     restart: always # 容器停止后自动重启
     volumes:
       - /root/blog/woshidasusu.github.io/:/var/jenkins_home/blog/codes/ # 将主机的 /root/blog/woshidasusu.github.io/ 目录挂载到容器的 /var/jenkins_home/blog/codes/ 目录
-      - /root/github/Doc/:/var/jenkins_home/gitbook/codes/ # 将主机的 /root/github/Doc/ 目录挂载到容器的 /var/jenkins_home/gitbook/codes/ 目录
       - /root/.ssh/:/root/.ssh/:ro # 将主机的 /root/.ssh/ 目录挂载到容器的 /root/.ssh/ 目录，并设置为只读
       - /etc/localtime:/etc/localtime:ro # 将主机的 /etc/localtime 文件挂载到容器的 /etc/localtime 文件，并设置为只读
     networks:
@@ -79,6 +78,9 @@ services:
     networks:
       n_nginx:
         ipv4_address: 192.168.5.108 # 为容器分配指定的 IPv4 地址
+
+        #Collabora Online - Built-in CODE Server
+        #nextcloud office
 
   doc:
     build: ./doc/ 

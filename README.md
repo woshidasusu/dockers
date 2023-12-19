@@ -6,30 +6,10 @@
 
 nginx 服务，映射 80 端口，根据二级域名进行转发，如：
 
-- [http://blog.dasu.fun](http://blog.dasu.fun)
+- [http://doc.dasu.fun](http://doc.dasu.fun)
 - [http://jenkins.dasu.fun](http://jenkins.dasu.fun)
-- [http://gitbook.dasu.fun](http://gitbook.dasu.fun)
+- [http://note.dasu.fun](http://note.dasu.fun)
 - [http://nextcloud.dasu.fun](http://nextcloud.dasu.fun)
-
-### blog
-
-nginx 运行的个人博客网站，跑在 9000 端口上  
-[http://blog.dasu.fun](http://blog.dasu.fun:9000)
-
-### jenkins
-
-jenkins 服务，自动更新个人博客网站和 gitbook，跑在 9001 端口上  
-[http://jenkins.dasu.fun](http://jenkins.dasu.fun:9001)
-
-### gitbook
-
-gitbook 搭建的各种速查笔记，方便查阅，跑在 9002 端口上
-[http://gitbook.dasu.fun](http://gitbook.dasu.fun:9002)
-
-### nextCloud
-
-nextCloud 搭建的个人网盘，跑在 9003 端口上
-[http://nextcloud.dasu.fun](http://nextcloud.dasu.fun:9003)
 
 ## 教程 - 手动版
 
@@ -64,11 +44,11 @@ nextCloud 搭建的个人网盘，跑在 9003 端口上
 
 - 进入 `/root/` 目录，创建一下这些目录：
 
-  - `mkdir blog` # hexo 构建生成的博客资源
+  - `mkdir blog` # 构建生成的博客资源(废弃)
   - `mkdir github` # 源代码目录
   - `mkdir postgres` # 数据库
-  - `mkdir doc` # gitbook 构建 Doc 仓库生成的资源（主要是平时的积累）
-  - `mkdir gitbook` # gitbook 构建 gitbook 仓库生成的资源（主要是一些速查笔记）
+  - `mkdir doc` # 构建 Doc 仓库生成的资源（主要是平时的积累）
+  - `mkdir note` # 构建 note 仓库生成的资源（主要是一些速查笔记）
 
 ### docker-compose up -d
 
@@ -158,7 +138,7 @@ mkdir blog
 mkdir github
 mkdir postgres
 mkdir doc
-mkdir gitbook
+mkdir note
 
 echo -e "Host github.com\n  StrictHostKeyChecking no" >> ~/.ssh/config
 git clone git@github.com:woshidasusu/dockers.git
@@ -169,17 +149,6 @@ git clone git@github.com:woshidasusu/woshidasusu.github.io.git
 cd /root/github
 git clone git@github.com:woshidasusu/Doc.git
 
-
-# 构建 gitbook
-log "开始构建 gitbook..."
-cd /root/github/Doc/gitbook
-rm -rf node_modules
-npm install
-npm run build
-mkdir /root/gitbook/html
-rm -rf /root/gitbook/html/*;
-cp -fr ./_book/* /root/gitbook/html/
-ls /root/gitbook/html/ -all
 
 log "所有环境安装完成。"
 docker -v

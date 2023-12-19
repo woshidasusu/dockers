@@ -1,4 +1,4 @@
-# blog
+# blog 已废弃
 cd /var/jenkins_home/blog/codes
 pwd
 whoami
