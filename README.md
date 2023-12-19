@@ -44,16 +44,22 @@ nginx 服务，映射 80 端口，根据二级域名进行转发，如：
 
 - 进入 `/root/` 目录，创建一下这些目录：
 
-  - `mkdir blog` # 构建生成的博客资源(废弃)
-  - `mkdir github` # 源代码目录
-  - `mkdir postgres` # 数据库
-  - `mkdir doc` # 构建 Doc 仓库生成的资源（主要是平时的积累）
-  - `mkdir note` # 构建 note 仓库生成的资源（主要是一些速查笔记）
+  - `mkdir blog` 
+    - 构建生成的博客资源(废弃)
+  - `mkdir github`
+    - 源代码目录
+  - `mkdir postgres` 
+    - 数据库
+  - `mkdir doc` 
+    - 构建 Doc 仓库生成的资源（主要是平时的积累）
+  - `mkdir note` 
+    - 构建 note 仓库生成的资源（主要是一些速查笔记）
 
 ### docker-compose up -d
 
 - 进入 `/root/dockers` 目录，执行：
-  - `docker-compose up -d` # 一键创建、启动后台运行的容器, -d 表示后台运行
+  - `docker-compose up -d` 
+    - 一键创建、启动后台运行的容器, -d 表示后台运行
 
 ### nextcloud 插件安装
 
@@ -169,8 +175,10 @@ EOF
 ```
 
 - 执行后，会在当前目录下生成一份 setup.sh 文件，继续执行：
-- `chmod +x setup.sh` # 将文件设置成可执行
-- `bash setup.sh` # 执行脚本
+- `chmod +x setup.sh` 
+  - 将文件设置成可执行
+- `bash setup.sh` 
+  - 执行脚本
 
 脚本会自动去安装 docker, docker-compose, git, nvm, node, whistle 以及拉取 github 的项目
 注：有些下载源是 github 的可能会失败，如果失败了需要手动执行
@@ -178,4 +186,4 @@ EOF
 ### docker-compose up -d
 
 进入上述脚本下载的 dockers 目录，在该目录执行：
-`docker-compose up -d`
+- `docker-compose up -d`
