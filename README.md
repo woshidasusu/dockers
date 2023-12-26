@@ -8,7 +8,7 @@ nginx 服务，映射 80 端口，根据二级域名进行转发，如：
 
 - [http://doc.dasu.fun](http://doc.dasu.fun)
 - [http://jenkins.dasu.fun](http://jenkins.dasu.fun)
-- [http://note.dasu.fun](http://note.dasu.fun)
+- [http://uidoc.dasu.fun](http://uidoc.dasu.fun)
 - [http://nextcloud.dasu.fun](http://nextcloud.dasu.fun)
 
 ## 教程 - 手动版
@@ -51,9 +51,9 @@ nginx 服务，映射 80 端口，根据二级域名进行转发，如：
   - `mkdir postgres` 
     - 数据库
   - `mkdir Doc` 
-    - 构建 Doc 仓库生成的资源（主要是平时的积累）
-  - `mkdir note` 
-    - 构建 note 仓库生成的资源（主要是一些速查笔记）
+    - 博客、笔记平台
+  - `mkdir uidoc` 
+    - 组件使用示例平台
 
 ### docker-compose up -d
 
@@ -78,7 +78,7 @@ nginx 服务，映射 80 端口，根据二级域名进行转发，如：
 创建项目：
 - blog
 - doc
-- note
+- uidoc
 
 ## 教程 - 脚本版
 
@@ -150,6 +150,16 @@ npm install whistle -g
 log "Whistle 环境安装完成。"
 #w2 start
 
+# 安装 pnpm
+log "开始 pnpm..."
+npm install -g pnpm
+pnpm -v
+
+# 安装 yarn
+log "开始 yarn..."
+npm install -g yarn
+yarn -v
+
 
 # 拉取 github 仓库
 log "拉取 github 仓库..."
@@ -167,9 +177,16 @@ git clone git@github.com:woshidasusu/woshidasusu.github.io.git
 
 cd /root/
 git clone git@github.com:woshidasusu/Doc.git
+cd Doc
+pnpm install
+npm run build
+
 
 cd /root/
-git clone git@github.com:woshidasusu/note.git
+git clone git@github.com:woshidasusu/uidoc.git
+cd Doc
+yarn install
+npm run build
 
 
 log "所有环境安装完成。"
