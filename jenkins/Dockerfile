@@ -4,12 +4,11 @@ FROM jenkins/jenkins:lts
 # 切换到 root 用户
 USER root
 
-# 安装 nvm
-RUN curl -o- https://gitee.com/mirrors/nvm/raw/v0.39.0/install.sh | bash
-RUN /bin/bash -c "source ~/.bashrc"
-RUN nvm --version
-RUN nvm install --lts
-RUN npm config set registry https://registry.npm.taobao.org
+# 将 Node.js 镜像复制到 Jenkins 镜像中
+COPY --from=node:latest /usr/local/bin/node /usr/local/bin/node
+
+# 将 Node.js 添加到环境变量
+ENV PATH="/usr/local/bin/node:${PATH}"
 
 # 安装 pnpm
 RUN npm install -g pnpm
