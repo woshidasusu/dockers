@@ -4,11 +4,12 @@ FROM jenkins/jenkins:lts
 # 切换到 root 用户
 USER root
 
-# 安装 Node.js
-RUN apt-get update && \
-    apt-get install -y curl && \
-    curl -sL https://deb.nodesource.com/setup_14.x | bash - && \
-    apt-get install -y nodejs
+# 安装 nvm
+RUN curl -o- https://gitee.com/mirrors/nvm/raw/v0.39.0/install.sh | bash
+RUN /bin/bash -c "source ~/.bashrc"
+RUN nvm --version
+RUN nvm install --lts
+RUN npm config set registry https://registry.npm.taobao.org
 
 # 安装 pnpm
 RUN npm install -g pnpm
