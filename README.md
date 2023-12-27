@@ -184,8 +184,8 @@ npm run build
 
 cd /root/
 git clone git@github.com:woshidasusu/uidoc.git
-cd Doc
-yarn install
+cd uidoc
+npm install
 npm run build
 
 
