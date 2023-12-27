@@ -80,6 +80,14 @@ nginx 服务，映射 80 端口，根据二级域名进行转发，如：
 - doc
 - uidoc
 
+配置构建脚本，如：
+```
+# jenkins容器上有配置了映射到宿主机不同项目的目录，具体查看 docker-compose.yml 里的配置
+cd /var/jenkins_home/doc/codes/
+git pull
+npm run build
+```
+
 ## 教程 - 脚本版
 
 ### 服务器环境准备
