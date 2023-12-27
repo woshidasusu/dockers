@@ -4,11 +4,9 @@ FROM jenkins/jenkins:lts
 # 切换到 root 用户
 USER root
 
-# 将 Node.js 镜像复制到 Jenkins 镜像中
-COPY --from=node:latest /usr/local/bin/node /usr/local/bin/node
-
-# 将 Node.js 添加到环境变量
-ENV PATH="/usr/local/bin/node:${PATH}"
+# 安装 Node.js
+RUN curl -fsSL https://deb.nodesource.com/setup_lts.x | bash -
+RUN apt-get install -y nodejs
 
 # 安装 pnpm
 RUN npm install -g pnpm
