@@ -78,6 +78,17 @@ services:
       n_nginx:
         ipv4_address: 192.168.5.108 # 为容器分配指定的 IPv4 地址
 
+  lowcode:
+    build: ./lowcode/
+    ports:
+      - "9004:80"
+    restart: always
+    volumes:
+      - /root/lowcode/dist/:/usr/share/nginx/html/
+    networks:
+      n_nginx:
+        ipv4_address: 192.168.5.109 # 为容器分配指定的 IPv4 地址
+
   doc:
     build: ./doc/
     ports:
