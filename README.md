@@ -187,14 +187,20 @@ cd /root/
 git clone git@github.com:woshidasusu/Doc.git
 cd Doc
 pnpm install
-npm run build
+pnpm run build
 
 
 cd /root/
 git clone git@github.com:woshidasusu/uidoc.git
 cd uidoc
-npm install
-npm run build
+pnpm install
+pnpm run build
+
+cd /root/
+git clone git@github.com:woshidasusu/lowcode.git
+cd lowcode
+pnpm install
+pnpm run build
 
 
 log "所有环境安装完成。"
