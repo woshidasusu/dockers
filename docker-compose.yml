@@ -27,8 +27,9 @@ services:
     user: root # 在容器中以 root 用户身份运行
     restart: always # 容器停止后自动重启
     volumes:
-      - /root/Doc/:/var/jenkins_home/doc/codes/
-      - /root/uidoc/:/var/jenkins_home/uidoc/codes/
+      - /root/Doc/:/var/jenkins_home/doc
+      - /root/uidoc/:/var/jenkins_home/uidoc
+      - /root/lowcode/:/var/jenkins_home/lowcode
       - /root/.ssh/:/root/.ssh/:ro # 将主机的 /root/.ssh/ 目录挂载到容器的 /root/.ssh/ 目录，并设置为只读
       - /etc/localtime:/etc/localtime:ro # 将主机的 /etc/localtime 文件挂载到容器的 /etc/localtime 文件，并设置为只读
     networks:
