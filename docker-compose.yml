@@ -30,6 +30,7 @@ services:
       - /root/Doc/:/var/jenkins_home/doc
       - /root/uidoc/:/var/jenkins_home/uidoc
       - /root/lowcode/:/var/jenkins_home/lowcode
+      - /root/dockers/:/var/jenkins_home/dockers
       - /root/.ssh/:/root/.ssh/:ro # 将主机的 /root/.ssh/ 目录挂载到容器的 /root/.ssh/ 目录，并设置为只读
       - /etc/localtime:/etc/localtime:ro # 将主机的 /etc/localtime 文件挂载到容器的 /etc/localtime 文件，并设置为只读
     networks:
