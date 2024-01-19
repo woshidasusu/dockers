@@ -1,4 +1,13 @@
 #!/bin/sh
+# 在 jenkins 上创建项目，配置每天2点定时构建：H 2 * * *
+# 配置执行脚本：
+# cd /var/jenkins_home/dockers
+# pwd
+# git pull
+# cd jenkins
+# bash github.sh
+####################################################################
+
 pwd
 whoami
 
