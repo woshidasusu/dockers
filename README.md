@@ -95,6 +95,17 @@ npm run build
 - 云服务器上生成 ssh 密钥，并把 id_rsa.pub 配置到 github 账号后台上
   - `ssh-keygen -t rsa -b 4096 -C "295207731@qq.com"`
   - `cat .ssh/id_rsa.pub`
+  - 在 `.ssh` 目录下创建文件 `config`
+  ```bash
+  Host github.com
+  StrictHostKeyChecking no
+  User git
+  Hostname ssh.github.com
+  PreferredAuthentications publickey
+  IdentityFile ~/.ssh/id_rsa
+  Port 443
+  ```
+
 - 开放云服务器的 80 和 443 端口访问
   - 直接在控制台的安全组入方向操作
   - 协议（TCP），端口范围（80/80，443/443），授权对象（0.0.0.0/0）
